@@ -127,6 +127,7 @@ function renderSection(sectionKey){
 
 async function init(){
   const res = await fetch('./data.json');
+  console.log("FETCH STATUS:", res.status);
   surveyData = await res.json();
 
   document.getElementById('generatedOn').textContent = surveyData.generated_on;
