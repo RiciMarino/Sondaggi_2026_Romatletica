@@ -12,14 +12,14 @@ function init() {
 }
 
 function renderTabs() {
-  const buttons = document.querySelectorAll('.tab-btn');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      renderSection(btn.dataset.section);
-    });
+
+      const section = btn.getAttribute('data-section');
+      renderSection(section);
+    };
   });
 }
 
