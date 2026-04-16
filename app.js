@@ -126,7 +126,6 @@ function renderSection(sectionKey){
 }
 
 async function init(){
-async function init(){
   console.log("Uso dati già presenti in app.js");
 
   document.getElementById('generatedOn').textContent = surveyData.generated_on;
