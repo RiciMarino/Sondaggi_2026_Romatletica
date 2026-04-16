@@ -126,7 +126,8 @@ function renderSection(sectionKey){
 }
 
 async function init(){
-  console.log("Uso dati già presenti in app.js");
+  const res = await fetch('./data.json');
+  surveyData = await res.json();
 
   document.getElementById('generatedOn').textContent = surveyData.generated_on;
   renderSummaryCards();
