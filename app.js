@@ -3,23 +3,25 @@ let DATA = null;
 async function loadData() {
   const res = await fetch('data.json');
   DATA = await res.json();
-  init();
+  setup();
 }
 
-function init() {
-  renderTabs();
+function setup() {
+  bindTabs();
   renderSection('tesserati');
 }
 
-function renderTabs() {
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+function bindTabs() {
+  const buttons = document.querySelectorAll('.tab-btn');
 
-      const section = btn.getAttribute('data-section');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', function () {
+      buttons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      const section = this.dataset.section;
       renderSection(section);
-    };
+    });
   });
 }
 
@@ -28,17 +30,17 @@ function renderSection(section) {
   container.innerHTML = '';
 
   if (section === 'open') {
-    renderOpenResponses(container);
+    renderOpen(container);
     return;
   }
 
   const sec = DATA.sections[section];
 
   sec.questions.forEach(q => {
-    const card = document.createElement('div');
-    card.className = 'panel';
+    const div = document.createElement('div');
+    div.className = 'panel';
 
-    card.innerHTML = `
+    div.innerHTML = `
       <h3>${q.question}</h3>
       <div class="small">${q.answered_n} risposte</div>
       <ul class="list-clean">
@@ -48,38 +50,35 @@ function renderSection(section) {
       </ul>
     `;
 
-    container.appendChild(card);
+    container.appendChild(div);
   });
 }
 
-function renderOpenResponses(container) {
+function renderOpen(container) {
   const open = DATA.open_responses;
 
   const wrapper = document.createElement('div');
   wrapper.className = 'grid-2';
 
-  // TAG
   const tagBox = document.createElement('div');
   tagBox.className = 'panel';
 
   tagBox.innerHTML = `
-    <h2>Tag risposte aperte</h2>
+    <h2>Tag</h2>
     <div class="tag-cloud">
       ${open.tag_summary.map(t => `
         <div class="tag-bubble">
-          ${t.tag} ${t.total}
-          <small>t:${t.areas.tesserati || 0} e:${t.areas.ex || 0} g:${t.areas.genitori || 0}</small>
+          ${t.tag} (${t.total})
         </div>
       `).join('')}
     </div>
   `;
 
-  // TABELLA
   const tableBox = document.createElement('div');
   tableBox.className = 'panel';
 
   tableBox.innerHTML = `
-    <h2>Risposte aperte</h2>
+    <h2>Risposte</h2>
     <div class="table-wrap">
       <table>
         <thead>
