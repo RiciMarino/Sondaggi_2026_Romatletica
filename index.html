@@ -26,7 +26,7 @@
               <span class="badge">Pronto per GitHub Pages</span>
             </div>
           </div>
-          <div class="logo-wrap logo-floating">
+          <div class="logo-wrap">
             <img src="logo.png" alt="Logo Asd Romatletica" />
           </div>
         </div>
@@ -35,23 +35,9 @@
   </header>
 
   <main>
-    <section class="section section-tight">
+    <section class="section">
       <div class="container">
         <div id="summaryCards" class="cards"></div>
-      </div>
-    </section>
-
-    <section class="section section-tight">
-      <div class="container">
-        <div class="panel panel-soft">
-          <div class="section-head">
-            <div>
-              <h2>Sezioni del sondaggio</h2>
-              <p class="small">Seleziona un’area per vedere subito quante persone hanno risposto e aprire i grafici della sezione.</p>
-            </div>
-          </div>
-          <div id="sectionMenu" class="section-menu"></div>
-        </div>
       </div>
     </section>
 
@@ -74,15 +60,15 @@
       </div>
     </section>
 
-    <section class="section" id="surveySections">
+    <section class="section">
       <div class="container">
         <div class="panel">
-          <div class="section-head section-head-stack-mobile">
-            <div>
-              <h2 id="sectionTitle">Sezione</h2>
-              <p id="sectionDescription" class="small"></p>
-            </div>
-            <div class="tabs" id="sectionTabs"></div>
+          <h2>Sezioni del sondaggio</h2>
+          <div class="tabs">
+            <button class="tab-btn active" data-section="tesserati">Tesserati</button>
+            <button class="tab-btn" data-section="autonomi">Tesserati autonomi</button>
+            <button class="tab-btn" data-section="ex">Ex tesserati</button>
+            <button class="tab-btn" data-section="genitori">Genitori</button>
           </div>
           <div id="sectionContent"></div>
         </div>
@@ -96,10 +82,11 @@
           <p class="small">Raggruppamento automatico dei commenti aperti dei tesserati, ex tesserati e genitori.</p>
           <div id="tagCloud" class="tag-cloud"></div>
         </div>
-        <div class="panel panel-soft">
-          <h2>Risposte aperte</h2>
-          <p class="small">I commenti sono aggregati per tag per aiutare a leggere i temi ricorrenti: comunicazione, impianti, gare, costi, tecnica e altri aspetti emersi spontaneamente.</p>
-          <div class="kpi-strip" id="openResponseTotals"></div>
+        <div class="panel">
+          <h2>Nota di lettura</h2>
+          <div class="notice">
+            I tesserati attivi sono stati filtrati includendo soltanto chi ha risposto “Sì, regolarmente” oppure “Sì, ma saltuariamente”. Gli ex tesserati includono solo “No, non mi alleno più”. Il foglio Tecnici è escluso.
+          </div>
         </div>
       </div>
     </section>
