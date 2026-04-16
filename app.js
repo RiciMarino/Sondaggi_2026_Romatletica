@@ -8,25 +8,36 @@ async function loadData() {
 
 function init() {
   bindTabs();
+  renderSummary();
   renderSection('tesserati');
 }
 
 function bindTabs() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
+    btn.onclick = function () {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
-
       renderSection(this.dataset.section);
-    });
+    };
   });
+}
+
+function renderSummary() {
+  document.getElementById('strengths').innerHTML =
+    DATA.analyses.strengths.map(s =>
+      `<li>${s.label} – <strong>${s.value}%</strong></li>`
+    ).join('');
+
+  document.getElementById('weaknesses').innerHTML =
+    DATA.analyses.weaknesses.map(w =>
+      `<li>${w.label}</li>`
+    ).join('');
 }
 
 function renderSection(section) {
   const container = document.getElementById('sectionContent');
   container.innerHTML = '';
 
-  // 👉 RISPOSTE APERTE
   if (section === 'open') {
     renderOpen(container);
     return;
@@ -35,45 +46,26 @@ function renderSection(section) {
   const sec = DATA.sections[section];
 
   sec.questions.forEach((q, i) => {
-    const div = document.createElement('div');
-    div.className = 'panel chart-card';
-
     const canvasId = `chart-${section}-${i}`;
+
+    const div = document.createElement('div');
+    div.className = 'panel';
 
     div.innerHTML = `
       <h3>${q.question}</h3>
-      <div class="small">${q.answered_n} risposte</div>
-      <div class="canvas-wrap">
-        <canvas id="${canvasId}"></canvas>
-      </div>
+      <canvas id="${canvasId}"></canvas>
     `;
 
     container.appendChild(div);
 
-    // GRAFICO A TORTA
-    const ctx = document.getElementById(canvasId);
-
-    new Chart(ctx, {
+    new Chart(document.getElementById(canvasId), {
       type: 'doughnut',
       data: {
         labels: q.responses.map(r => r.label),
         datasets: [{
           data: q.responses.map(r => r.count),
-          backgroundColor: [
-            '#365b49',
-            '#7ea66a',
-            '#a8c09a',
-            '#d7c57b',
-            '#cfe3c6'
-          ]
+          backgroundColor: ['#365b49','#7ea66a','#a8c09a','#d7c57b']
         }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            position: 'bottom'
-          }
-        }
       }
     });
   });
@@ -82,55 +74,17 @@ function renderSection(section) {
 function renderOpen(container) {
   const open = DATA.open_responses;
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'grid-2';
+  container.innerHTML = `
+    <div class="panel">
+      <h2>Tag</h2>
+      ${open.tag_summary.map(t => `<div>${t.tag} (${t.total})</div>`).join('')}
+    </div>
 
-  // TAG
-  const tagBox = document.createElement('div');
-  tagBox.className = 'panel';
-
-  tagBox.innerHTML = `
-    <h2>Tag risposte aperte</h2>
-    <div class="tag-cloud">
-      ${open.tag_summary.map(t => `
-        <div class="tag-bubble">
-          ${t.tag} (${t.total})
-        </div>
-      `).join('')}
+    <div class="panel">
+      <h2>Commenti</h2>
+      ${open.responses.map(r => `<p><b>${r.area}</b>: ${r.text}</p>`).join('')}
     </div>
   `;
-
-  // TABELLA
-  const tableBox = document.createElement('div');
-  tableBox.className = 'panel';
-
-  tableBox.innerHTML = `
-    <h2>Risposte aperte</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Area</th>
-            <th>Tag</th>
-            <th>Commento</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${open.responses.map(r => `
-            <tr>
-              <td>${r.area}</td>
-              <td>${r.tags.join(', ')}</td>
-              <td>${r.text}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
-
-  wrapper.appendChild(tagBox);
-  wrapper.appendChild(tableBox);
-  container.appendChild(wrapper);
 }
 
 loadData();
