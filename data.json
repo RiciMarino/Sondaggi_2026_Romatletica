@@ -926,7 +926,7 @@
       "questions": [
         {
           "id": "esperienza",
-          "question": "Nel complesso, come valuti la tua esperienza con Romatletica? 2",
+          "question": "Nel complesso, come valuti la tua esperienza con Romatletica?",
           "type": "single",
           "base_n": 28,
           "answered_n": 28,
