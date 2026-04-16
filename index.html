@@ -4,67 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asd Romatletica – sondaggi 2026</title>
+  <meta name="description" content="Dashboard dei sondaggi 2026 di Asd Romatletica" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
-<header class="hero">
-  <div class="container">
-    <div class="hero-card">
-      <div class="hero-grid">
-        <div>
-          <h1>Asd Romatletica – sondaggi 2026</h1>
-          <p>Dashboard di ascolto per leggere rapidamente punti di forza e criticità.</p>
-        </div>
-        <div class="logo-wrap">
-          <img src="logo.png" />
+  <header class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div>
+            <h1>Asd Romatletica – sondaggi 2026</h1>
+            <p>Dashboard di ascolto per leggere rapidamente punti di forza, aree critiche e dettaglio delle risposte di tesserati, tesserati autonomi, ex tesserati e genitori.</p>
+            <div class="hero-badges">
+              <span class="badge">Statistiche a torta</span>
+              <span class="badge">Analisi sintetica</span>
+              <span class="badge">Tag risposte aperte</span>
+              <span class="badge">Pronto per GitHub Pages</span>
+            </div>
+          </div>
+          <div class="logo-wrap logo-floating">
+            <img src="logo.png" alt="Logo Asd Romatletica" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main>
-
-<section class="section">
-  <div class="container grid-2">
-    <div class="panel">
-      <h2>Punti di forza</h2>
-      <ul id="strengths"></ul>
-    </div>
-    <div class="panel">
-      <h2>Aree di attenzione</h2>
-      <ul id="weaknesses"></ul>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="panel">
-      <h2>Sezioni del sondaggio</h2>
-
-      <div class="tabs">
-        <button class="tab-btn active" data-section="tesserati">Tesserati</button>
-        <button class="tab-btn" data-section="autonomi">Tesserati autonomi</button>
-        <button class="tab-btn" data-section="ex">Ex tesserati</button>
-        <button class="tab-btn" data-section="genitori">Genitori</button>
-        <button class="tab-btn" data-section="open">Risposte aperte</button>
-      </div>
-
-      <div id="sectionContent"></div>
-
-    </div>
-  </div>
-</section>
-
-</main>
-
-<script src="app.js"></script>
-</body>
-</html>      <div class="container">
+  <main>
+    <section class="section section-tight">
+      <div class="container">
         <div id="summaryCards" class="cards"></div>
+      </div>
+    </section>
+
+    <section class="section section-tight">
+      <div class="container">
+        <div class="panel panel-soft">
+          <div class="section-head">
+            <div>
+              <h2>Sezioni del sondaggio</h2>
+              <p class="small">Seleziona un’area per vedere subito quante persone hanno risposto e aprire i grafici della sezione.</p>
+            </div>
+          </div>
+          <div id="sectionMenu" class="section-menu"></div>
+        </div>
       </div>
     </section>
 
@@ -87,23 +74,55 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="surveySections">
       <div class="container">
         <div class="panel">
-          <h2>Sezioni del sondaggio</h2>
-          <div class="tabs">
-            <button class="tab-btn active" data-section="tesserati">Tesserati</button>
-            <button class="tab-btn" data-section="autonomi">Tesserati autonomi</button>
-            <button class="tab-btn" data-section="ex">Ex tesserati</button>
-            <button class="tab-btn" data-section="genitori">Genitori</button>
-            <button class="tab-btn" data-section="open">Risposte aperte</button>
+          <div class="section-head section-head-stack-mobile">
+            <div>
+              <h2 id="sectionTitle">Sezione</h2>
+              <p id="sectionDescription" class="small"></p>
+            </div>
+            <div class="tabs" id="sectionTabs"></div>
           </div>
           <div id="sectionContent"></div>
         </div>
       </div>
     </section>
 
+    <section class="section">
+      <div class="container grid-2">
+        <div class="panel">
+          <h2>Tag delle risposte aperte</h2>
+          <p class="small">Raggruppamento automatico dei commenti aperti dei tesserati, ex tesserati e genitori.</p>
+          <div id="tagCloud" class="tag-cloud"></div>
+        </div>
+        <div class="panel panel-soft">
+          <h2>Risposte aperte</h2>
+          <p class="small">I commenti sono aggregati per tag per aiutare a leggere i temi ricorrenti: comunicazione, impianti, gare, costi, tecnica e altri aspetti emersi spontaneamente.</p>
+          <div class="kpi-strip" id="openResponseTotals"></div>
+        </div>
+      </div>
+    </section>
 
+    <section class="section">
+      <div class="container">
+        <div class="panel">
+          <h2>Dettaglio risposte aperte</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Tag</th>
+                  <th>Commento</th>
+                </tr>
+              </thead>
+              <tbody id="openTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
